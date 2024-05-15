@@ -16,7 +16,7 @@ interface PedidoProps {
   pedido: Pedido;
 }
 
-export function PedidoSignageInProgress({ pedido }: PedidoProps): JSX.Element {
+export function PedidoSignageInProgress({ pedido }: Readonly<PedidoProps>): JSX.Element {
   return (
     <div className="flex flex-col bg-gray-300 mb-4 rounded-lg bg-opacity-70 p-4">
 
@@ -57,7 +57,7 @@ export function PedidoSignageInProgress({ pedido }: PedidoProps): JSX.Element {
 }
 
 
-export function PedidoSignagePending({ pedido }: PedidoProps): JSX.Element {
+export function PedidoSignagePending({ pedido }: Readonly<PedidoProps>): JSX.Element {
   return (
     <div className="flex flex-col bg-gray-300 mb-4 rounded-lg bg-opacity-70 p-4">
 
