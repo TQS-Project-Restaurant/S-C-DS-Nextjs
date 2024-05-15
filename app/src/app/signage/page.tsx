@@ -1,38 +1,29 @@
+"use client";
 import {
   PedidoSignageInProgress,
   PedidoSignagePending,
+  Pedido,
 } from "./PedidosSignage";
 
-const inProgressOrders = [
-  {
-    id: 1,
-    mesa: 1,
-    pratos: [
-      { id: 1, nome: "bitoque", imagemUrl: "https://cdn.tasteatlas.com/images/dishes/9c4888bb938346c3ada2cddd5d1a0ebc.jpg" },
-      { id: 2, nome: "bacalhau", imagemUrl: "https://cdn.tasteatlas.com/images/dishes/9c4888bb938346c3ada2cddd5d1a0ebc.jpg" },
-    ],
-    bebidas: [
-      { id: 1, nome: "cocacola", imagemUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1FAP0Qz-w0QwFTUppkmJJ-Ovd4xLKkZaVNv9r6gouvA&s" },
-      { id: 2, nome: "guarana", imagemUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1FAP0Qz-w0QwFTUppkmJJ-Ovd4xLKkZaVNv9r6gouvA&s" },
-    ],
-    status: 0,
-  },
-];
+import useSWR from "swr";
 
-const pendingOrders = [
-  {
-    id: 5,
-    mesa: 12,
-    pratos: [{ id: 3, nome: "polvo", imagemUrl: "https://cdn.tasteatlas.com/images/dishes/9c4888bb938346c3ada2cddd5d1a0ebc.jpg" }],
-    bebidas: [
-      { id: 1, nome: "cocacola", imagemUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1FAP0Qz-w0QwFTUppkmJJ-Ovd4xLKkZaVNv9r6gouvA&s" },
-      { id: 2, nome: "guarana", imagemUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1FAP0Qz-w0QwFTUppkmJJ-Ovd4xLKkZaVNv9r6gouvA&s" },
-    ],
-    status: 0,
-  },
-];
+async function fetcher<Pedido>(url:string):Promise<Pedido[]>{
+  const res = await fetch(url);
+  if(!res.ok){
+    throw new Error("Error fetching data");
+  }
+  return(res.json())
+}
 
 export default function signage() {
+
+  const {data : orders, error} = useSWR<Pedido[]>("http://localhost:8080/api/requests",fetcher,{refreshInterval:5000});
+  if (error) return <div>Erro ao carregar os dados.</div>;
+  if (!orders) return <div>Carregando...</div>;
+
+  const inProgressOrders = orders.filter(order => order.status === 1);
+  const pendingOrders = orders.filter(order => order.status === 0);
+
   return (
     <main className="m-4 flex">
       <div className="w-2/3 mr-4 bg-green-400 p-4 rounded-lg">
