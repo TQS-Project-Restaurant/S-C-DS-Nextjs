@@ -40,7 +40,7 @@ export default function signage() {
           <h2>Orders In Progress</h2>
         </div>
         {inProgressOrders.map((pedido) => (
-          <PedidoSignageInProgress pedido={pedido} />
+          <PedidoSignageInProgress key={pedido.id} pedido={pedido} />
         ))}
       </div>
       <div className="w-1/3 bg-yellow-400 p-4 rounded-lg">
@@ -48,7 +48,7 @@ export default function signage() {
           <h2>Pending Orders</h2>
         </div>
         {pendingOrders.map((pedido) => (
-          <PedidoSignagePending pedido={pedido} />
+          <PedidoSignagePending key={pedido.id} pedido={pedido} />
         ))}
       </div>
     </main>
