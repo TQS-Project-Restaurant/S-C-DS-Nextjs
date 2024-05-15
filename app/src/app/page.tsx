@@ -3,30 +3,9 @@ export default function Signage() {
     {
       id: 1,
       mesa: 1,
-      pratos: [{ nome: "bitoque" }, { nome: "bacalhau" }],
-      bebidas: [{ nome: "cocacola" }, { nome: "guarana" }],
+      pratos: [{ id:1, nome: "bitoque" }, { id:2, nome: "bacalhau" }],
+      bebidas: [{ id:1, nome: "cocacola" }, { id:2, nome: "guarana" }],
       status: 0,
-    },
-    {
-      id: 2,
-      mesa: 2,
-      pratos: [{ nome: "francesinha" }],
-      bebidas: [{ nome: "cocacola" }],
-      status: 1,
-    },
-    {
-      id: 3,
-      mesa: 3,
-      pratos: [{ nome: "sushi" }, { nome: "sashimi" }, { nome: "idk" }],
-      bebidas: [{ nome: "cocacola" }],
-      status: 1,
-    },
-    {
-      id: 4,
-      mesa: 3,
-      pratos: [{ nome: "sushi" }, { nome: "sashimi" }, { nome: "idk" }],
-      bebidas: [{ nome: "cocacola" }],
-      status: 1,
     },
   ];
 
@@ -34,22 +13,15 @@ export default function Signage() {
     {
       id: 5,
       mesa: 12,
-      pratos: [{ nome: "pog" }],
-      bebidas: [{ nome: "cocacola" }, { nome: "guarana" }],
+      pratos: [{ id:3, nome: "polvo" }],
+      bebidas: [{ id:1, nome: "cocacola" }, { id:2, nome: "guarana" }],
       status: 0,
-    },
-    {
-      id: 6,
-      mesa: 22,
-      pratos: [{ nome: "francesinha" }],
-      bebidas: [],
-      status: 1,
     },
   ];
 
-  const inProgressOrdersTables = inProgressOrders.map((order, orderIndex) => (
+  const inProgressOrdersTables = inProgressOrders.map((order) => (
     <table
-      key={orderIndex}
+      key={order.id}
       className="table-lg w-full bg-gray-300 mb-4 rounded-lg bg-opacity-70"
     >
       <thead>
@@ -61,13 +33,13 @@ export default function Signage() {
       <tbody className="align-top">
         <tr>
           <td>
-            {order.pratos.map((prato, pratoIndex) => (
+            {order.pratos.map((prato) => (
               <div
-                key={pratoIndex}
+                key={prato.id}
                 className="mb-1 flex items-center gap-3 bg-gray-400 p-4 rounded-lg"
               >
                 <div className="avatar mask mask-squircle w-12 h-12">
-                  <img src="https://cdn.tasteatlas.com/images/dishes/9c4888bb938346c3ada2cddd5d1a0ebc.jpg" />
+                  <img alt={prato.nome} src="https://cdn.tasteatlas.com/images/dishes/9c4888bb938346c3ada2cddd5d1a0ebc.jpg" />
                 </div>
                 <div>
                   <div className="font-bold">{prato.nome}</div>
@@ -76,13 +48,13 @@ export default function Signage() {
             ))}
           </td>
           <td>
-            {order.bebidas.map((bebida, bebidaIndex) => (
+            {order.bebidas.map((bebida) => (
               <div
-                key={bebidaIndex}
+                key={bebida.id}
                 className="mb-1 flex items-center gap-3 bg-gray-400 p-4 rounded-lg"
               >
                 <div className="avatar mask mask-squircle w-12 h-12">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1FAP0Qz-w0QwFTUppkmJJ-Ovd4xLKkZaVNv9r6gouvA&s" />
+                  <img alt={bebida.nome} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1FAP0Qz-w0QwFTUppkmJJ-Ovd4xLKkZaVNv9r6gouvA&s" />
                 </div>
                 <div>
                   <div className="font-bold">{bebida.nome}</div>
@@ -95,9 +67,9 @@ export default function Signage() {
     </table>
   ));
 
-  const pendingOrdersTables = pendingOrders.map((order, orderIndex) => (
+  const pendingOrdersTables = pendingOrders.map((order) => (
     <table
-      key={orderIndex}
+      key={order.id}
       className="table-lg w-full bg-gray-300 mb-4 rounded-lg bg-opacity-70"
     >
       <thead>
