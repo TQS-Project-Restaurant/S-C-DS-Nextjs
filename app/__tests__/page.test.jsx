@@ -6,8 +6,10 @@ describe('Page', () => {
   it('renders a heading', () => {
     render(<Page />)
  
-    const heading = screen.getAllByText("Find in-depth information about Next.js features and API.")[0]
- 
-    expect(heading).toBeInTheDocument()
+    const inProgressHeader = screen.getByText('Orders In Progress');
+    const pendingHeader = screen.getByText('Pending Orders');
+    expect(inProgressHeader).toBeInTheDocument();
+    expect(pendingHeader).toBeInTheDocument();
+
   })
 })
