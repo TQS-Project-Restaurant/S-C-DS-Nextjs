@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { Pedido } from "../_interfaces/Pedido";
-import { Status } from "../_interfaces/Status";
+import { Status,Pedido } from "../_interfaces";
 
 interface PedidoProps {
   pedido: Pedido;
@@ -36,7 +35,7 @@ export default function Ticket({ pedido } : PedidoProps): JSX.Element {
   };
 
     return (
-      <div className=" bg-yellow-100 w-full aspect-square p-4 text-black flex flex-col relative overflow-x-clip">
+      <div id="ticket" className=" bg-yellow-100 w-full aspect-square p-4 text-black flex flex-col relative overflow-x-clip">
         <div className="flex justify-between">
           <div id="pedido">Pedido {pedido.id}</div>
           <div id="mesa">Mesa {pedido.mesa}</div>

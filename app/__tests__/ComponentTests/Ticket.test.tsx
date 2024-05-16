@@ -1,25 +1,60 @@
 import '@testing-library/jest-dom'
 import { render, screen,queryByAttribute } from '@testing-library/react'
 import Ticket from '../../src/app/pedidos/Ticket'
+import { Status,Pedido,Prato } from '@/app/_interfaces'
 
-interface Pedido {
-    mesa: number;
-    id: number;
-    pratos: number;
-    bebidas: number;
-    status: number;
-  }
+jest.mock('next/navigation', () => ({
+  useRouter() {
+    return ({
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn()
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null)
+    });
+  },
+}));
+
+const lasanha:Prato = {
+  id:2,
+  nome:"woof",
+  imagemUrl:"woof",
+}
 
 const pedido:Pedido = {
   mesa:3,
   id:22,
-  pratos:3,
-  bebidas: 2,
-  status:0,
+  pratos:[lasanha],
+  bebidas: [lasanha],
+  status:Status.PENDING,
 }
 const getById = queryByAttribute.bind(null, 'id');
 
 describe('Testing Ticket component', () => {
+  beforeEach(async () => {
+    const useRouter = jest.spyOn(require("next/navigation"), "useRouter");
+
+    useRouter.mockImplementation(() => ({
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn()
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null)
+    }));
+  });
+
     it('renders a ticket correct id', () => {
       const dom = render(<Ticket pedido={pedido} />)
       const hearder = getById(dom.container,"pedido")

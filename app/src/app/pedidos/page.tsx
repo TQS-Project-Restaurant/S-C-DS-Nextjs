@@ -1,6 +1,5 @@
 "use client";
-import { Pedido } from "../_interfaces/Pedido";
-import { Status } from "../_interfaces/Status";
+import { Status,Pedido } from "../_interfaces";
 import Ticket from "./Ticket";
 import useSWR from "swr";
 
@@ -22,7 +21,7 @@ async function fetcher<Pedido>(url:string):Promise<Pedido[]>{
 }
 
 
-export default function pedidos() {
+export default function Pedidos() {
   const {data,error} = useSWR<Pedido[]>("http://localhost:8080/api/requests",fetcher,{refreshInterval:5000});
   if (error) return <div>Erro ao carregar os dados.</div>;
   if (!data) return <div>Carregando...</div>;
@@ -32,7 +31,7 @@ export default function pedidos() {
             <div className=" font-bold text-2xl p-2">Pending:</div>
             <div className="grid grid-cols-3 gap-3 gap-y-6">
               {data?.filter((element)=> element.status == Status.PENDING).map((pedido)=>(
-                <Ticket pedido={pedido}/>
+                <Ticket data-testid="ticket" pedido={pedido}/>
               ))}
             </div>
         </div>
@@ -40,7 +39,7 @@ export default function pedidos() {
             <div className=" font-bold text-2xl p-2">Progress:</div>
             <div className="grid grid-cols-3 gap-3 gap-y-6">
             {data?.filter((element)=> element.status == Status.PREPARING).map((pedido)=>(
-                <Ticket pedido={pedido}/>
+                <Ticket data-testid="ticket" pedido={pedido}/>
               ))}
             </div>
         </div>
@@ -48,7 +47,7 @@ export default function pedidos() {
             <div className=" font-bold text-2xl p-2">To deliver:</div>
             <div className="grid grid-cols-3 gap-3 gap-y-6">
             {data?.filter((element)=> element.status == Status.COMPLETED).map((pedido)=>(
-                <Ticket pedido={pedido}/>
+                <Ticket data-testid="ticket" pedido={pedido}/>
               ))}
             </div>
         </div>

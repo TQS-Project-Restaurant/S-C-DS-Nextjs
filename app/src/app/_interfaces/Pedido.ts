@@ -1,7 +1,7 @@
-import { Prato } from "./Prato";
-import { Status } from "./Status";
+import Prato from "./Prato";
+import Status from "./Status";
 
-export interface Pedido{
+export default interface Pedido{
     mesa: number;
     id: number;
     pratos: Array<Prato>;
