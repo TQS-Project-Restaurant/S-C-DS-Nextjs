@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { render, screen,queryByAttribute } from '@testing-library/react'
 import Ticket from '../../src/app/pedidos/Ticket'
-import { Status,Pedido,Prato } from '@/app/_interfaces'
+import { Status,Pedido,Comida } from '@/app/_interfaces'
 
 jest.mock('next/navigation', () => ({
   useRouter() {
@@ -21,7 +21,7 @@ jest.mock('next/navigation', () => ({
   },
 }));
 
-const lasanha:Prato = {
+const lasanha:Comida = {
   id:2,
   nome:"woof",
   imagemUrl:"woof",
