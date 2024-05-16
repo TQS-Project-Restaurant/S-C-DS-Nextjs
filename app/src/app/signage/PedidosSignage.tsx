@@ -1,16 +1,4 @@
-interface Comida {
-  id: number;
-  nome: string;
-  imagemUrl: string;
-}
-
-export interface Pedido {
-  mesa: number;
-  id: number;
-  pratos: Array<Comida>;
-  bebidas: Array<Comida>;
-  status: number;
-}
+import { Pedido } from "../_interfaces";
 
 interface PedidoProps {
   pedido: Pedido;

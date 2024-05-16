@@ -2,8 +2,8 @@
 import {
   PedidoSignageInProgress,
   PedidoSignagePending,
-  Pedido,
 } from "./PedidosSignage";
+import { Pedido } from "../_interfaces";
 
 import useSWR from "swr";
 
