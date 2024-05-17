@@ -15,7 +15,7 @@ async function fetcher<Pedido>(url:string):Promise<Pedido[]>{
   return(res.json())
 }
 
-export default function signage() {
+export default function Signage() {
 
   const {data : orders, error} = useSWR<Pedido[]>("http://localhost:8080/api/requests",fetcher,{refreshInterval:5000});
   if (error) return <div>Erro ao carregar os dados.</div>;
