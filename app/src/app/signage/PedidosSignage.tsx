@@ -1,16 +1,4 @@
-interface Comida {
-  id: number;
-  nome: string;
-  imagemUrl: string;
-}
-
-interface Pedido {
-  mesa: number;
-  id: number;
-  pratos: Array<Comida>;
-  bebidas: Array<Comida>;
-  status: number;
-}
+import { Pedido } from "../_interfaces";
 
 interface PedidoProps {
   pedido: Pedido;
@@ -34,7 +22,7 @@ export function PedidoSignageInProgress({ pedido }: Readonly<PedidoProps>): JSX.
           {pedido.pratos.map((prato) => (
             <div key={prato.id} className="mb-1 flex items-center gap-3 bg-gray-400 p-4 rounded-lg">
               <div className="avatar mask mask-squircle w-12 h-12">
-                <img alt={prato.nome} src={prato.imagemUrl} />
+                <img alt={prato.nome} src={"http://localhost:8080" + prato.imagemUrl} />
               </div>
               <div className="font-bold">{prato.nome}</div>
             </div>
@@ -44,7 +32,7 @@ export function PedidoSignageInProgress({ pedido }: Readonly<PedidoProps>): JSX.
           {pedido.bebidas.map((bebida) => (
             <div key={bebida.id} className="mb-1 flex items-center gap-3 bg-gray-400 p-4 rounded-lg">
               <div className="avatar mask mask-squircle w-12 h-12">
-                <img alt={bebida.nome} src={bebida.imagemUrl} />
+                <img alt={bebida.nome} src={"http://localhost:8080" + bebida.imagemUrl} />
               </div>
               <div className="font-bold">{bebida.nome}</div>
             </div>
