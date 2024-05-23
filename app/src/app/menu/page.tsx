@@ -43,7 +43,7 @@ export default function MenuPage():JSX.Element{
 
     return(
         <div className="relative">
-            <img src="https://www.desktopbackground.org/download/o/2013/05/31/584855_black-chalkboard-wallpapers-walldevil-best-free-hd-desktop-and_1920x1080_h.jpg" className="h-[110%] w-full fixed"></img>
+            <img src="https://www.desktopbackground.org/download/o/2013/05/31/584855_black-chalkboard-wallpapers-walldevil-best-free-hd-desktop-and_1920x1080_h.jpg" className="h-[110%] w-full fixed" alt="backgound"></img>
             <div className="text-white fixed w-full flex flex-col items-center">
             <div className="text-8xl text-center w-full p-3">Restaurant Moles Ovos</div>
                 <div className="text-7xl text-center w-full p-3">Menu do Dia</div>
@@ -51,11 +51,11 @@ export default function MenuPage():JSX.Element{
                     <div className="w-[40%] py-4">
                         <div className="text-3xl pt-3 pb-2">Pratos</div>
                         {pratos.map((element)=>(
-                            <ProductLine comida={element}/>
+                            <ProductLine key={element.id} comida={element}/>
                         ))}
                         <div className="text-3xl py-3 pt-4 pb-2">Bebidas</div>
                         {bebidas.map((element)=>(
-                            <ProductLine comida={element}/>
+                            <ProductLine key={element.id} comida={element}/>
                         ))}
                     </div>
 
