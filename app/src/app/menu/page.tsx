@@ -1,4 +1,5 @@
 import { Menu } from "../_interfaces"
+import ProductLine from "./ProductLine"
 
 const pratos = [
     {
@@ -45,14 +46,15 @@ export default function MenuPage():JSX.Element{
             <img src="https://www.desktopbackground.org/download/o/2013/05/31/584855_black-chalkboard-wallpapers-walldevil-best-free-hd-desktop-and_1920x1080_h.jpg" className="h-[110%] w-full fixed"></img>
             <div className="text-white fixed w-full flex flex-col items-center">
                 <div className="text-7xl text-center w-full p-3">Menu do Dia</div>
+                <div className="bg-white w-[40%] h-[2px]"></div>
                     <div className="w-[40%] py-4">
                         <div className="text-3xl pt-3 pb-2">Pratos</div>
                         {pratos.map((element)=>(
-                            <div className="px-2 w-full text-center text-2xl flex justify-between"><div>{element.nome}</div> {element.preco}</div>
+                            <ProductLine comida={element}/>
                         ))}
                         <div className="text-3xl py-3 pt-4 pb-2">Bebidas</div>
                         {bebidas.map((element)=>(
-                            <div className="px-2 w-full text-center text-2xl flex justify-between"><div>{element.nome}</div> {element.preco}</div>
+                            <ProductLine comida={element}/>
                         ))}
                     </div>
 
