@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import { Status,Pedido } from "../_interfaces";
 import Ticket from "./Ticket";
 import useSWR from "swr";
@@ -13,7 +14,7 @@ const pedido = {
 
 
 async function fetcher<Pedido>(url:string):Promise<Pedido[]>{
-  const res = await fetch(url);
+  const res = await fetch(url,{cache:"no-store"});
   if(!res.ok){
     throw new Error("Cant acess data");
   }
