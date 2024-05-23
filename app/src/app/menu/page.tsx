@@ -45,6 +45,7 @@ export default function MenuPage():JSX.Element{
         <div className="relative">
             <img src="https://www.desktopbackground.org/download/o/2013/05/31/584855_black-chalkboard-wallpapers-walldevil-best-free-hd-desktop-and_1920x1080_h.jpg" className="h-[110%] w-full fixed"></img>
             <div className="text-white fixed w-full flex flex-col items-center">
+            <div className="text-8xl text-center w-full p-3">Restaurant Moles Ovos</div>
                 <div className="text-7xl text-center w-full p-3">Menu do Dia</div>
                 <div className="bg-white w-[40%] h-[2px]"></div>
                     <div className="w-[40%] py-4">
