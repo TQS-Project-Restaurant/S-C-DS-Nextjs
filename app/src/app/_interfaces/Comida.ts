@@ -1,5 +1,10 @@
-export default interface Comida{
+export default interface Comida {
     id: number;
     nome: string;
-    imagemUrl: string;
+    preco: number;
+    hidratosCarbono?: number;
+    proteina?: number;
+    kcal?: number;
+    stock: number;
+    imagemUrl?: string;
 }
