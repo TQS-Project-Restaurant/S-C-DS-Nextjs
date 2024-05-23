@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { Status,Pedido } from "../_interfaces";
+import { useSWRConfig } from "swr";
 
 interface PedidoProps {
   pedido: Pedido;
@@ -22,7 +23,7 @@ async function updatePedido(id:number,pedido:Pedido):Promise<Pedido>{
 
 
 export default function Ticket({ pedido } : PedidoProps): JSX.Element {
-
+  const { mutate } = useSWRConfig()
   let buttonText:string;
   const router = useRouter();
 
@@ -47,7 +48,7 @@ export default function Ticket({ pedido } : PedidoProps): JSX.Element {
             <div>bebidas: {pedido.bebidas.length}</div>
           </div>
         </div>
-        <button onClick={()=>{pedido.status = pedido.status +1;updatePedido(pedido.id,pedido);router.refresh()}} disabled={pedido.status == Status.COMPLETED}
+        <button onClick={()=>{pedido.status = pedido.status +1;updatePedido(pedido.id,pedido).then(()=>{mutate("http://localhost:8080/api/requests")})}} disabled={pedido.status == Status.COMPLETED}
                 className={"mt-auto bg-blue-500 rounded-md z-10 disabled:bg-blue-200 disabled:text-gray-800"}>
           {buttonText}
         </button>
