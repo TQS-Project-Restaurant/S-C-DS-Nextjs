@@ -17,7 +17,7 @@ export default async function MenuPage(){
             <div className="text-white fixed w-full flex flex-col items-center">
             <div className="text-8xl text-center w-full p-3">Restaurant Moles Ovos</div>
                 <div className="text-7xl text-center w-full pt-3">Menu do Dia</div>
-                <div className="text-2xl text-center w-full pb-3">{data !== null && data.dia}</div>
+                {data !== null ? <div className="text-2xl text-center w-full pb-3">{data.dia}</div>:<></>}
                 <div className="bg-white w-[40%] h-[2px]"></div>
                     {data !== null ?<div className="w-[40%] py-4">
                         <div className="text-3xl pt-3 pb-2">Pratos</div>
