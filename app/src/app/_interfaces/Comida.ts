@@ -5,6 +5,6 @@ export default interface Comida {
     hidratosCarbono?: number;
     proteina?: number;
     kcal?: number;
-    stock: number;
+    stock?: number;
     imagemUrl?: string;
 }
