@@ -4,5 +4,5 @@ export default interface Menu{
     id: number;
     pratos: Array<Comida>;
     bebidas: Array<Comida>;
-    dia: Date;
+    dia: string;
 }
