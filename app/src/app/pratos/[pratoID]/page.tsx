@@ -1,7 +1,13 @@
 import { Comida } from '@/app/_interfaces';
 import Link from 'next/link';
 
-export default async function PratoPage({ params }: { params: { pratoID: Readonly<number> } }) {
+interface PratoPageProps {
+    params: {
+      readonly pratoID: number;
+    };
+}
+
+export default async function PratoPage({ params }: Readonly<PratoPageProps>) {
 
   const prato:Comida = await fetch("http://api:8080/api/dishes/" + params.pratoID, {cache:"no-cache"}).then((response)=>{
     if (response.status === 200){

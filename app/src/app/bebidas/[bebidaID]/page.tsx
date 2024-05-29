@@ -1,7 +1,13 @@
 import { Comida } from '@/app/_interfaces';
 import Link from 'next/link';
 
-export default async function BebidaPage({ params }: { params: { bebidaID: Readonly<number> } }) {
+interface BebidaPageProps {
+    params: {
+      readonly bebidaID: number;
+    };
+}
+  
+export default async function BebidaPage({ params }: Readonly<BebidaPageProps>) {
 
   const bebida:Comida = await fetch("http://api:8080/api/beverages/" + params.bebidaID, {cache:"no-cache"}).then((response)=>{
     if (response.status === 200){
