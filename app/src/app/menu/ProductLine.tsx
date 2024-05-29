@@ -8,7 +8,7 @@ interface ComidaProps {
   isBebida: boolean;
 }
 
-export default function ProductLine({ comida, isBebida }: ComidaProps): JSX.Element {
+export default function ProductLine({ comida, isBebida }: Readonly<ComidaProps>): JSX.Element {
   const router = useRouter();
 
     if (isBebida) {
