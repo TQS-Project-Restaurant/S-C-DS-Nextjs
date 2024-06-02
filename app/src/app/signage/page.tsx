@@ -4,11 +4,15 @@ import {
   PedidoSignagePending,
 } from "./PedidosSignage";
 import { Pedido } from "../_interfaces";
+import { useSession } from "next-auth/react";
 
 import useSWR from "swr";
+import { redirect } from "next/navigation";
 
-async function fetcher<Pedido>(url:string):Promise<Pedido[]>{
-  const res = await fetch(url);
+async function fetcher<Pedido>(url:string,token:any):Promise<Pedido[]>{
+  const res = await fetch(url,{
+    headers:{Authorization: `Bearer ${token}`}
+  });
   if(!res.ok){
     throw new Error("Error fetching data");
   }
@@ -16,8 +20,15 @@ async function fetcher<Pedido>(url:string):Promise<Pedido[]>{
 }
 
 export default function Signage() {
-
-  const {data : orders, error} = useSWR<Pedido[]>("http://localhost:8080/api/requests",fetcher,{refreshInterval:5000});
+  const { data: session } = useSession({
+    required:true,
+    onUnauthenticated(){
+      redirect('/api/auth/signin?callbackUrl=/signage')
+    }
+  })
+  if(session?.user != undefined && session?.user.role !== "KITCHEN")
+    redirect("/menu")
+  const {data : orders, error} = useSWR<Pedido[]>(session? ["http://localhost:8080/api/requests",session.user.token]:null,([url,token])=>fetcher(url,token),{refreshInterval:5000});
   if (error) return <div>Erro ao carregar os dados.</div>;
   if (!orders) return <div>Carregando...</div>;
 

@@ -9,11 +9,26 @@ const orders = [
   { id: 2, mesa: 2, pratos: [{ id: 2, nome: "bacalhau" }], bebidas: [{ id: 2 }], status: 0,},
 ];
 
+jest.mock("next-auth/react", () => {
+  const originalModule = jest.requireActual('next-auth/react');
+  const mockSession = {
+    expires: new Date(Date.now() + 2 * 86400).toISOString(),
+    user: { email:"kitchen@gmail.com",role:"KITCHEN",token:"da" }
+  };
+  return {
+    __esModule: true,
+    ...originalModule,
+    useSession: jest.fn(() => {
+      return {data: mockSession, status: 'authenticated'}  // return type is [] in v3 but changed to {} in v4
+    }),
+  };
+});
+
 jest.mock("swr");
 
 describe("Signage component", () => {
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it("shows loading state", () => {
