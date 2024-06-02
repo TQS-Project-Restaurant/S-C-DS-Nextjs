@@ -21,12 +21,12 @@ export default async function MenuPage(){
                 <div className="bg-white w-[40%] h-[2px]"></div>
                     {data !== null ?<div className="w-[40%] py-4">
                         <div className="text-3xl pt-3 pb-2">Pratos</div>
-                        {data.pratos.map((element)=>(
-                            <ProductLine key={element.id} comida={element}/>
+                        {data.pratos.map((element) => (
+                            <ProductLine key={element.id} comida={element} isBebida={false} />
                         ))}
                         <div className="text-3xl py-3 pt-4 pb-2">Bebidas</div>
                         {data.bebidas.map((element)=>(
-                            <ProductLine key={element.id} comida={element}/>
+                            <ProductLine key={element.id} comida={element} isBebida={true} />
                         ))}
                     </div> : <div className="bg-white w-[40%] h-[2px]">No Menu</div>}
 
