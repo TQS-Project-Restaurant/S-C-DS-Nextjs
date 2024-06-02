@@ -11,5 +11,15 @@ declare module "next-auth" {
       token: string,
     },
     expires:string,
+  };
+
+  interface User {
+    role: string
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    user: User
   }
 }

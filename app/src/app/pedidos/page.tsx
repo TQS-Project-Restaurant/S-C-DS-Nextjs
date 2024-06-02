@@ -25,7 +25,7 @@ export default function Pedidos() {
   })
   if(session?.user != undefined && session?.user.role !== "KITCHEN")
     redirect("/menu")
-  const {data , error} = useSWR<Pedido[]>(session? ["http://localhost:8080/api/requests",session.user.token]:null,([url,token])=>fetcher(url,token),{refreshInterval:5000});
+  const {data , error} = useSWR<Pedido[]>(session? [process.env.NEXT_PUBLIC_IP_ADDRESS + "/api/requests",session.user.token]:null,([url,token])=>fetcher(url,token),{refreshInterval:5000});
   if (error) return <div>Erro ao carregar os dados.</div>;
   if (!data) return <div>Carregando...</div>;
     return (
