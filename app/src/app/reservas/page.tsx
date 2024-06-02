@@ -1,26 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 type Slot = [number, number];
 
 export default function BookingPage() {
-
   const [date, setDate] = useState<string>("");
   const [slots, setSlots] = useState<Slot[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<number[]>([]);
+  const [tables, setTables] = useState<number>(1);
 
   const { data: session } = useSession({
-    required:true,
-    onUnauthenticated(){
-      redirect('/api/auth/signin?callbackUrl=/reservas')
-    }
-  })
+    required: true,
+    onUnauthenticated() {
+      redirect('/api/auth/signin?callbackUrl=/reservas');
+    },
+  });
 
-  if(session?.user != undefined && session?.user.role !== "USER")
-    redirect("/menu")
+  useEffect(() => {
+    if (session?.user != undefined && session?.user.role !== "USER") {
+      redirect("/menu");
+    }
+  }, [session]);
 
   const fetchAvailableSlots = async (selectedDate: string) => {
     const response = await fetch(`http://localhost:8080/api/bookings/availableSlots?date=${selectedDate}`, { cache: "no-cache" });
@@ -39,7 +42,7 @@ export default function BookingPage() {
   };
 
   const handleBooking = async () => {
-    if (selectedSlot === null) return alert("Please select a time slot");
+    if (selectedSlot.length === 0) return alert("Please select a time slot");
 
     const response = await fetch("http://localhost:8080/api/bookings", {
       method: "POST",
@@ -47,10 +50,10 @@ export default function BookingPage() {
         Authorization: `Bearer ${session?.user.token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ dia:date, hora: selectedSlot}),
+      body: JSON.stringify({ dia: date, hora: selectedSlot, quantidadeMesas: tables }),
     });
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       alert("Booking successful");
     } else {
       console.error("Error making booking");
@@ -78,7 +81,7 @@ export default function BookingPage() {
             {slots.map((slot, index) => (
               <button
                 key={index}
-                onClick={() => setSelectedSlot([slot[0],slot[1]])}
+                onClick={() => setSelectedSlot([slot[0], slot[1]])}
                 className={`px-4 py-2 rounded-md ${
                   selectedSlot[0] === slot[0] && selectedSlot[1] === slot[1]
                     ? "bg-blue-500 text-white"
@@ -91,6 +94,20 @@ export default function BookingPage() {
           </div>
         </div>
       )}
+      <div className="mb-4">
+        <label className="block text-gray-700">Number of Tables:</label>
+        <select
+          value={tables}
+          onChange={(e) => setTables(parseInt(e.target.value))}
+          className="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((tableCount) => (
+            <option key={tableCount} value={tableCount}>
+              {tableCount}
+            </option>
+          ))}
+        </select>
+      </div>
       <button
         onClick={handleBooking}
         className="px-4 py-2 bg-green-500 text-white rounded-md"
