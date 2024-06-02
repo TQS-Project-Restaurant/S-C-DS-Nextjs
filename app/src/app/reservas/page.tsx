@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 type Slot = [number, number];
 
@@ -8,7 +10,17 @@ export default function BookingPage() {
 
   const [date, setDate] = useState<string>("");
   const [slots, setSlots] = useState<Slot[]>([]);
-  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<number[]>([]);
+
+  const { data: session } = useSession({
+    required:true,
+    onUnauthenticated(){
+      redirect('/api/auth/signin?callbackUrl=/reservas')
+    }
+  })
+
+  if(session?.user != undefined && session?.user.role !== "USER")
+    redirect("/menu")
 
   const fetchAvailableSlots = async (selectedDate: string) => {
     const response = await fetch(`http://localhost:8080/api/bookings/availableSlots?date=${selectedDate}`, { cache: "no-cache" });
@@ -32,9 +44,10 @@ export default function BookingPage() {
     const response = await fetch("http://localhost:8080/api/bookings", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${session?.user.token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ date, time: selectedSlot }),
+      body: JSON.stringify({ dia:date, hora: selectedSlot}),
     });
 
     if (response.status === 200) {
@@ -65,9 +78,9 @@ export default function BookingPage() {
             {slots.map((slot, index) => (
               <button
                 key={index}
-                onClick={() => setSelectedSlot(slot[0])}
+                onClick={() => setSelectedSlot([slot[0],slot[1]])}
                 className={`px-4 py-2 rounded-md ${
-                  selectedSlot === slot[0]
+                  selectedSlot[0] === slot[0] && selectedSlot[1] === slot[1]
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 text-gray-700"
                 }`}

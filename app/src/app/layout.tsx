@@ -30,6 +30,12 @@ export default async function RootLayout({
                 </div>
                 :
                 <></>}
+              {session && session.user.role === "USER"?
+                <div className="flex gap-1">
+                  <a className="bg-gray-700 rounded-md p-1" href="/reservas">Reservas</a>
+                </div>
+                :
+                <></>}
               <a className="bg-gray-700 rounded-md p-1" href="/menu">Menu</a>
               {session?
                 <a className="bg-gray-700 rounded-md p-1" href="/api/auth/signout?callbackUrl=/menu">SignOut</a>
