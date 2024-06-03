@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 type Reservation = {
   id: number;
@@ -15,7 +14,6 @@ type Reservation = {
 
 export default function UserReservationsPage() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
-  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const router = useRouter();
 
   const { data: session } = useSession({
@@ -72,11 +70,6 @@ export default function UserReservationsPage() {
         Fazer Reserva
         </button>
       <h1 className="text-2xl font-bold mb-4">My Reservations</h1>
-      {alertMessage && (
-        <div className="mb-4 text-red-500">
-          <p>{alertMessage}</p>
-        </div>
-      )}
       {reservations.length > 0 ? (
         <div className="grid grid-cols-1 gap-4">
           {reservations.map((reservation) => {
