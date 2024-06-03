@@ -32,7 +32,7 @@ export default async function RootLayout({
                 <></>}
               {session && session.user.role === "USER"?
                 <div className="flex gap-1">
-                  <a className="bg-gray-700 rounded-md p-1" href="/reservas">Reservas</a>
+                  <a className="bg-gray-700 rounded-md p-1" href="/reservas/user">Reservas</a>
                 </div>
                 :
                 <></>}
