@@ -51,7 +51,7 @@ describe("Prato page Component", () => {
     expect(screen.getByText(`${bebida.kcal}`)).toBeInTheDocument();
     expect(screen.getByText(`${bebida.hidratosCarbono}g`)).toBeInTheDocument();
     expect(screen.getByText(`${bebida.proteina}g`)).toBeInTheDocument();
-    expect(screen.getByAltText(bebida.nome)).toHaveAttribute('src', `http://api:8080${bebida.imagemUrl}`);
+    expect(screen.getByAltText(bebida.nome)).toHaveAttribute('src', `${process.env.NEXT_PUBLIC_IP_ADDRESS}${bebida.imagemUrl}`);
   });
 
   it("data is not received", async () => {
