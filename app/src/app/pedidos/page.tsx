@@ -23,18 +23,21 @@ export default function Pedidos() {
       redirect('/api/auth/signin?callbackUrl=/signage')
     }
   })
-  if(session?.user != undefined && session?.user.role !== "KITCHEN")
+  if(session?.user != undefined && session?.user.role !== "KITCHEN"){
     redirect("/menu")
+  }
+    
   const {data , error} = useSWR<Pedido[]>(session? [process.env.NEXT_PUBLIC_IP_ADDRESS + "/api/requests",session.user.token]:null,([url,token])=>fetcher(url,token),{refreshInterval:5000});
   if (error) return <div>Erro ao carregar os dados.</div>;
   if (!data) return <div>Carregando...</div>;
-    return (
+
+  return (
       <div className="grid grid-cols-3 p-4 gap-2 flex-grow">
         <div className=" bg-gray-300 rounded-md text-black p-2 overflow-scroll">
             <div className=" font-bold text-2xl p-2">Pending:</div>
             <div className="grid grid-cols-3 gap-3 gap-y-6">
               {data?.filter((element)=> element.status == Status.PENDING).map((pedido)=>(
-                <Ticket data-testid="ticket" pedido={pedido}/>
+                <Ticket key={pedido.id} data-testid="ticket" pedido={pedido}/>
               ))}
             </div>
         </div>
@@ -42,7 +45,7 @@ export default function Pedidos() {
             <div className=" font-bold text-2xl p-2">Progress:</div>
             <div className="grid grid-cols-3 gap-3 gap-y-6">
             {data?.filter((element)=> element.status == Status.PREPARING).map((pedido)=>(
-                <Ticket data-testid="ticket" pedido={pedido}/>
+                <Ticket key={pedido.id} data-testid="ticket" pedido={pedido}/>
               ))}
             </div>
         </div>
@@ -50,7 +53,7 @@ export default function Pedidos() {
             <div className=" font-bold text-2xl p-2">To deliver:</div>
             <div className="grid grid-cols-3 gap-3 gap-y-6">
             {data?.filter((element)=> element.status == Status.COMPLETED).map((pedido)=>(
-                <Ticket data-testid="ticket" pedido={pedido}/>
+                <Ticket key={pedido.id} data-testid="ticket" pedido={pedido}/>
               ))}
             </div>
         </div>

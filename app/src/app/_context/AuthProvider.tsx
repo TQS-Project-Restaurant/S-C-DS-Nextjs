@@ -3,7 +3,7 @@
 import { SessionProvider } from "next-auth/react";
 
 export default function AuthProvider({children}:{
-    children: React.ReactNode
+    children: Readonly<React.ReactNode>
 }){
     return(
         <SessionProvider>
