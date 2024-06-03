@@ -1,0 +1,14 @@
+FROM node:22 as build
+
+WORKDIR /app
+COPY ./app/package*.json ./
+
+ARG NEXT_PUBLIC_IP_ADDRESS
+ENV NEXT_PUBLIC_IP_ADDRESS=$NEXT_PUBLIC_IP_ADDRESS
+ENV NEXTAUTH_URL=$NEXT_PUBLIC_IP_ADDRESS
+
+RUN npm install
+COPY ./app .
+EXPOSE 3000
+RUN npm run build
+CMD ["npm", "run", "start"]

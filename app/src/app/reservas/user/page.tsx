@@ -33,7 +33,7 @@ export default function UserReservationsPage() {
   }, [session]);
 
   const fetchReservations = async () => {
-      const response = await fetch("http://localhost:8080/api/bookings", {
+      const response = await fetch(process.env.NEXT_PUBLIC_IP_ADDRESS + "/api/bookings", {
         headers: {
           Authorization: `Bearer ${session?.user.token}`,
         },

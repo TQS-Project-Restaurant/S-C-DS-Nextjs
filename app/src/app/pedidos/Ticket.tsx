@@ -9,7 +9,7 @@ interface PedidoProps {
 }
 
 async function updatePedido(id:number,pedido:Pedido,token:string):Promise<Pedido>{
-  const res = await fetch(`http://localhost:8080/api/requests/${id}`,{
+  const res = await fetch(process.env.NEXT_PUBLIC_IP_ADDRESS + `/api/requests/${id}`,{
     method:"PUT",
     headers: {
       'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export default function Ticket({ pedido } : PedidoProps): JSX.Element {
         </div>
         <button onClick={session?()=>{pedido.status = pedido.status +1;
                                       updatePedido(pedido.id,pedido,session.user.token).then(()=>{
-                                        mutate(["http://localhost:8080/api/requests",session.user.token])
+                                        mutate([process.env.NEXT_PUBLIC_IP_ADDRESS + "/api/requests",session.user.token])
                                       })}
                                 :()=>{}} 
                 disabled={pedido.status == Status.COMPLETED}

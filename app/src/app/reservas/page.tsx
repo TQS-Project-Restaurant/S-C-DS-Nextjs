@@ -27,7 +27,7 @@ export default function ReservasPage() {
   }, [session]);
 
   const fetchAvailableSlots = async (selectedDate: string) => {
-    const response = await fetch(`http://localhost:8080/api/bookings/availableSlots?date=${selectedDate}`, { cache: "no-cache" });
+    const response = await fetch(process.env.NEXT_PUBLIC_IP_ADDRESS + `/api/bookings/availableSlots?date=${selectedDate}`, { cache: "no-cache" });
     if (response.status === 200) {
       const data: Slot[] = await response.json();
       setSlots(data);
@@ -47,7 +47,7 @@ export default function ReservasPage() {
   const handleBooking = async () => {
     if (selectedSlot.length === 0) return setAlertMessage("Please select a time slot");
 
-    const response = await fetch("http://localhost:8080/api/bookings", {
+    const response = await fetch(process.env.NEXT_PUBLIC_IP_ADDRESS + "/api/bookings", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${session?.user.token}`,

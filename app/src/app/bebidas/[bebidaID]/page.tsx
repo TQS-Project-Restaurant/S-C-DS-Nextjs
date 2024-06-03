@@ -23,7 +23,7 @@ export default async function BebidaPage({ params }: Readonly<BebidaPageProps>) 
         {bebida !== null ? 
         <div className="text-white fixed w-full flex flex-col items-center">
             <div className="text-7xl text-center w-full p-3">{bebida.nome}</div>
-            <img alt={bebida.nome} className="text-3xl py-3 pt-4 pb-2 w-[400px] h-[300px] object-cover" src={"http://localhost:8080" + bebida.imagemUrl} />
+            <img alt={bebida.nome} className="text-3xl py-3 pt-4 pb-2 w-[400px] h-[300px] object-cover" src={process.env.NEXT_PUBLIC_IP_ADDRESS + "" + bebida.imagemUrl} />
             <div className="text-5xl text-center w-full p-3">€{bebida.preco.toFixed(2)}</div>
             <div className="w-[400px] flex flex-col items-center pt-4">
                 <div className="w-full flex justify-between p-2 bg-black bg-opacity-50 border border-gray-300 rounded-t-md">
