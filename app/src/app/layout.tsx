@@ -3,7 +3,6 @@ import  AuthProvider  from "./_context/AuthProvider"
 import "./globals.css";
 import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/options";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Create Next App",

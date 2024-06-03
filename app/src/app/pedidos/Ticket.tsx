@@ -1,5 +1,5 @@
 "use client";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { Status,Pedido } from "../_interfaces";
 import { useSWRConfig } from "swr";
 import { useSession } from "next-auth/react";
@@ -24,7 +24,7 @@ async function updatePedido(id:number,pedido:Pedido,token:string):Promise<Pedido
 }
 
 
-export default function Ticket({ pedido } : PedidoProps): JSX.Element {
+export default function Ticket({ pedido } : Readonly<PedidoProps>): JSX.Element {
   const { data: session } = useSession({
     required:true,
     onUnauthenticated(){
@@ -34,13 +34,14 @@ export default function Ticket({ pedido } : PedidoProps): JSX.Element {
   const { mutate } = useSWRConfig()
   let buttonText:string;
 
-  if(pedido.status == 0){
+  if (pedido.status === 0) {
     buttonText = "Pass to in Progress";
-  }else if(pedido.status == 1){
+  } else if (pedido.status === 1) {
     buttonText = "Pass to done";
-  }else{
+  } else {
     buttonText = "waiting to deliver";
-  };
+  }
+  
 
     return (
       <div id="ticket" className=" bg-yellow-100 w-full aspect-square p-4 text-black flex flex-col relative overflow-x-clip">

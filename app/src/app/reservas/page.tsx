@@ -77,7 +77,8 @@ export default function ReservasPage() {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Book a Slot</h1>
       <div className="mb-4">
-        <label className="block text-gray-700">Choose a date:
+        <label className="block text-gray-700">
+          Choose a date:
           <input
             type="date"
             value={date}
@@ -90,7 +91,8 @@ export default function ReservasPage() {
       </div>
       {slots.length > 0 && (
         <div className="mb-4">
-          <label className="block text-gray-700">Available Slots:
+          <label className="block text-gray-700">
+            Available Slots:
             <div className="grid grid-cols-3 gap-2 mt-2">
               {slots.map((slot, index) => (
                 <button
