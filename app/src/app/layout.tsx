@@ -20,7 +20,7 @@ export default async function RootLayout({
       <body>
         <AuthProvider>
           <div className="h-screen w-screen flex flex-col">
-            <div className=" bg-gray-800 h-[40px] w-full flex justify-end gap-2 p-2 items-center">
+            <div className="text-white bg-gray-800 h-[40px] w-full flex justify-end gap-2 p-2 items-center">
               {session? session.user.email:""}
               {session && session.user.role === "KITCHEN"?
                 <div className="flex gap-1">
